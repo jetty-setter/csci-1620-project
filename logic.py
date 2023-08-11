@@ -20,16 +20,14 @@ class Television(QMainWindow, Ui_MainWindow):
         self.channel = Television.MIN_CHANNEL
         self.slider_volume.setMaximum(25)
         self.slider_volume.setMinimum(0)
-        self.view_channel.setPixmap(QtGui.QPixmap("0x0"))
         self.label_power.setPixmap(QtGui.QPixmap("images/power_off.jpg"))
         self.button_power.clicked.connect(self.power)
-        self.button_volup.clicked.connect(self.button_volup_action)
-        self.button_voldown.clicked.connect(self.button_voldown_action)
-        self.button_chanup.clicked.connect(self.button_chanup_action)
-        self.button_chandown.clicked.connect(self.button_chandown_action)
+        self.button_volup.clicked.connect(self.button_volume_up)
+        self.button_voldown.clicked.connect(self.button_volume_down)
+        self.button_chanup.clicked.connect(self.button_channel_up)
+        self.button_chandown.clicked.connect(self.button_channel_down)
         self.button_mute.clicked.connect(self.mute)
         self.slider_volume.setEnabled(False)
-        self.slider_volume.setTickPosition(QtWidgets.QSlider.TickPosition.NoTicks)  # Hide ticks
         self.slider_volume.sliderMoved.connect(self.slider_moved)
         self.slider_volume.sliderPressed.connect(self.slider_pressed)
 
@@ -41,7 +39,6 @@ class Television(QMainWindow, Ui_MainWindow):
             self.label_power.setPixmap(QtGui.QPixmap("images/power_off.jpg"))
             self.label_channel.setText(f'')
             self.slider_volume.setValue(self.MIN_VOLUME)
-            self.view_channel.setPixmap(QtGui.QPixmap("0x0.jpg"))
             self.disable_slider()
         else:
             self.status = True
@@ -96,14 +93,14 @@ class Television(QMainWindow, Ui_MainWindow):
         if self.slider_volume.isEnabled():
             self.slider_volume.setValue(self.volume)
 
-    def button_volup_action(self) -> None:
+    def button_volume_up(self) -> None:
         """ Increases the volume depending on the status
         :parameters: None """
         if self.status and self.volume < Television.MAX_VOLUME:
             self.volume += 1
             self.slider_volume.setValue(self.volume)
 
-    def button_voldown_action(self) -> None:
+    def button_volume_down(self) -> None:
         """Decreases the volume depending on the status
         :parameters: None """
         if self.status and self.volume > Television.MIN_VOLUME:
@@ -124,7 +121,7 @@ class Television(QMainWindow, Ui_MainWindow):
 
             self.slider_volume.setValue(self.volume)
 
-    def button_chanup_action(self) -> None:
+    def button_channel_up(self) -> None:
         """ Increases the channel depending on the status
         :parameters: None """
         if not self.status:
@@ -157,7 +154,7 @@ class Television(QMainWindow, Ui_MainWindow):
         if self.channel == 0:
             self.view_channel.setPixmap(QtGui.QPixmap('images/abc.jpg'))
 
-    def button_chandown_action(self) -> None:
+    def button_channel_down(self) -> None:
         """ Decreases the channel depending on the status
         :parameters: None """
         if not self.status:
