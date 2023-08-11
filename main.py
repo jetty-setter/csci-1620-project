@@ -1,5 +1,6 @@
 from logic import *
 
+
 def main():
     application = QApplication([])
     window = Television()
@@ -9,4 +10,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
